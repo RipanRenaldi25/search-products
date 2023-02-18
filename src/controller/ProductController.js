@@ -1,5 +1,5 @@
 import Products from "../model/Products.js";
-import { QueryTypes } from "sequelize";
+import { Op, fn } from "sequelize";
 export const getAllData = async ( req, res ) => {
     try{
         const products = await Products.findAll();
@@ -22,8 +22,33 @@ export const getProductById = async (req,res) => {
 }
 export const getProductsByTitle = async (req,res) => {
     try{
-        const { title } = req.query;
-        const products = await Products.sequelize.query(`SELECT * FROM products WHERE title like '${title}%'`, {type: QueryTypes.SELECT});
+        let products;
+        let { title="", orderBy='', sort='asc', maxPrice, minPrice, category=['all'] } = req.query;
+        if(category[0] !== 'all'){
+            category = req.query.category.split(",");
+        }else{
+            // Set Default Value of Categories equal To All Categories in Database
+            category = await Products.findAll({attributes: ['category']});
+            category = category.map(value=>value.category);
+            category = [...new Set(category)];
+        }
+        products = await Products.findAll({
+            where: {
+                [Op.and]: [
+                    {
+                        title: {
+                            [Op.like]: `%${title}%`
+                        }
+                    },
+                    {
+                        category: {
+                            [Op.in]: [...category]
+                        }
+                    }
+                ]
+            },
+            
+        })
         if( !products.length ){
             return res.status(404).json({message: 'Data Not Found', data: products});
         }

@@ -4,5 +4,5 @@ const SearchRouter = Router();
 
 SearchRouter.get('/products', getAllData);
 SearchRouter.get('/product/:id', getProductById);
-SearchRouter.get('/products/keyword/', getProductsByTitle);
+SearchRouter.get('/products/search/', getProductsByTitle);
 export default SearchRouter;
