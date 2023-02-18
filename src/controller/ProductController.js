@@ -23,8 +23,8 @@ export const getProductById = async (req,res) => {
 export const getProductsByTitle = async (req,res) => {
     try{
         const { title } = req.query;
-        const products = await Products.sequelize.query(`SELECT * FROM products WHERE title like '%iphone%'`, {type: QueryTypes.SELECT});
-        if( !products ){
+        const products = await Products.sequelize.query(`SELECT * FROM products WHERE title like '${title}%'`, {type: QueryTypes.SELECT});
+        if( !products.length ){
             return res.status(404).json({message: 'Data Not Found', data: products});
         }
         res.status(200).json({message: 'Data Founded', products});
