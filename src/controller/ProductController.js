@@ -23,7 +23,7 @@ export const getProductById = async (req,res) => {
 export const getProductsByTitle = async (req,res) => {
     try{
         let products;
-        let { title="", orderBy='', sort='asc', maxPrice, minPrice, category=['all'] } = req.query;
+        let { title="", orderBy='', sort='asc', maxPrice=99999999999, minPrice=0, category=['all'] } = req.query;
         if(category[0] !== 'all'){
             category = req.query.category.split(",");
         }else{
@@ -43,6 +43,11 @@ export const getProductsByTitle = async (req,res) => {
                     {
                         category: {
                             [Op.in]: [...category]
+                        }
+                    },
+                    {
+                        price: {
+                            [Op.between]: [minPrice, maxPrice]
                         }
                     }
                 ]
