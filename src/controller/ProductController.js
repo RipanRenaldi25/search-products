@@ -22,8 +22,7 @@ export const getProductById = async (req,res) => {
 }
 export const getProductsByTitle = async (req,res) => {
     try{
-        let products;
-        let { title="", orderBy='', sort='asc', maxPrice=99999999999, minPrice=0, category=['all'] } = req.query;
+        let { title="", orderBy="price", sort='asc', maxPrice=99999999999, minPrice=0, category=['all'] } = req.query;
         if(category[0] !== 'all'){
             category = req.query.category.split(",");
         }else{
@@ -32,7 +31,7 @@ export const getProductsByTitle = async (req,res) => {
             category = category.map(value=>value.category);
             category = [...new Set(category)];
         }
-        products = await Products.findAll({
+        const products = await Products.findAll({
             where: {
                 [Op.and]: [
                     {
@@ -52,6 +51,9 @@ export const getProductsByTitle = async (req,res) => {
                     }
                 ]
             },
+            order:[
+                [orderBy, sort]
+            ]
             
         })
         if( !products.length ){
