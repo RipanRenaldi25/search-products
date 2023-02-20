@@ -13,3 +13,5 @@ app.use(SearchRouter);
 app.listen(parseInt(process.env.PORT), ()=>{
     console.log(`Server Listen on PORT ${process.env.PORT}`);
 })
+
+export default app;
