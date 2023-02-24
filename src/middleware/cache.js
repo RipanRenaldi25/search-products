@@ -1,8 +1,8 @@
 import { caching } from 'cache-manager';
-const memory = await caching('memory', {
+let memory = await caching('memory', {
     max: 100,
     ttl: 1000 * 10
-});
+})
 const cache = duration => async (req, res, next) => {
     try{
         if(req.method !== "GET"){
@@ -24,6 +24,5 @@ const cache = duration => async (req, res, next) => {
     }catch(e){
         console.log(e.message);
     }
-    
 }
 export default cache;

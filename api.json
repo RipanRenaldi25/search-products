@@ -1,0 +1,350 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "contact": {
+            "name": "Ripan Renaldi",
+            "email": "ripanrenaldi25042002@gmail.com"
+        },
+        "title": "Restfull Api For Products Search Services",
+        "description": "Dokumentasi Restfull API untuk Service Search Products",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000",
+            "description": "Search Products"
+        }
+    ],
+    "paths": {
+        
+        "/products": {
+            "get": {
+                "summary": "Get All Products",
+                "tags": ["Products"],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Products Founded",
+                                    "products": [
+                                        {
+                                            "id": "1",
+                                            "title": "iPhone 9",
+                                            "description": "An apple mobile which is nothing like apple",
+                                            "price": 549,
+                                            "stock": 94,
+                                            "category": "smartphones",
+                                            "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+                                            "images0": "https://i.dummyjson.com/data/products/1/1.jpg",
+                                            "images1": "https://i.dummyjson.com/data/products/1/2.jpg",
+                                            "images2": "https://i.dummyjson.com/data/products/1/3.jpg",
+                                            "images3": null,
+                                            "images4": null
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "UnAuthorize User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{id}": {
+            "get": {
+                "summary": "Get Product By Id",
+                "description": "Get Product By Id",
+                "parameters":[
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "tags": ["Products"],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Product Founded",
+                                    "product": {
+                                        "id": "1",
+                                        "title": "iPhone 9",
+                                        "description": "An apple mobile which is nothing like apple",
+                                        "price": 549,
+                                        "stock": 94,
+                                        "category": "smartphones",
+                                        "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+                                        "images0": "https://i.dummyjson.com/data/products/1/1.jpg",
+                                        "images1": "https://i.dummyjson.com/data/products/1/2.jpg",
+                                        "images2": "https://i.dummyjson.com/data/products/1/3.jpg",
+                                        "images3": null,
+                                        "images4": null
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "UnAuthorize User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Product Not Found",
+                                    "product": []
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/categories": {
+            "get": {
+                "tags": ["Products"],
+                "summary": "Get Product Categories",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Found Categories",
+                                    "categories": [
+                                        "smartphones",
+                                        "laptops",
+                                        "fragrances",
+                                        "skincare",
+                                        "groceries",
+                                        "home-decoration",
+                                        "asd"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{category}": {
+            "get": {
+                "tags": ["Products"],
+                "summary": "Get Products By Category",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Smartphones": {
+                                        "summary": "Smartphones",
+                                        "description": "Get All Products Smartphones",
+                                        "value": {
+                                            "message": "Product Founded",
+                                            "products": [
+                                                {
+                                                    "id": "1",
+                                                    "title": "iPhone 9",
+                                                    "description": "An apple mobile which is nothing like apple",
+                                                    "price": 549,
+                                                    "stock": 94,
+                                                    "category": "smartphones",
+                                                    "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+                                                    "images0": "https://i.dummyjson.com/data/products/1/1.jpg",
+                                                    "images1": "https://i.dummyjson.com/data/products/1/2.jpg",
+                                                    "images2": "https://i.dummyjson.com/data/products/1/3.jpg",
+                                                    "images3": null,
+                                                    "images4": null
+                                                },
+                                                {
+                                                    "id": "2",
+                                                    "title": "iPhone X",
+                                                    "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+                                                    "price": 899,
+                                                    "stock": 34,
+                                                    "category": "smartphones",
+                                                    "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+                                                    "images0": "https://i.dummyjson.com/data/products/2/1.jpg",
+                                                    "images1": "https://i.dummyjson.com/data/products/2/2.jpg",
+                                                    "images2": "https://i.dummyjson.com/data/products/2/3.jpg",
+                                                    "images3": null,
+                                                    "images4": null
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "Skincare": {
+                                        "summary": "Skin Care",
+                                        "description": "Get All Products Skin Care",
+                                        "value": {
+                                            "message": "Product Founded",
+                                            "products": [
+                                                {
+                                                    "id": "16",
+                                                    "title": "Hyaluronic Acid Serum",
+                                                    "description": "L'OrÃ©al Paris introduces Hyaluron Expert Replumping Serum formulated with 1.5% Hyaluronic Acid",
+                                                    "price": 19,
+                                                    "stock": 110,
+                                                    "category": "skincare",
+                                                    "thumbnail": "https://i.dummyjson.com/data/products/16/thumbnail.jpg",
+                                                    "images0": "https://i.dummyjson.com/data/products/16/1.png",
+                                                    "images1": "https://i.dummyjson.com/data/products/16/2.webp",
+                                                    "images2": "https://i.dummyjson.com/data/products/16/3.jpg",
+                                                    "images3": null,
+                                                    "images4": null
+                                                },
+                                                {
+                                                    "id": "17",
+                                                    "title": "Tree Oil 30ml",
+                                                    "description": "Tea tree oil contains a number of compounds, including terpinen-4-ol, that have been shown to kill certain bacteria,",
+                                                    "price": 12,
+                                                    "stock": 78,
+                                                    "category": "skincare",
+                                                    "thumbnail": "https://i.dummyjson.com/data/products/17/thumbnail.jpg",
+                                                    "images0": "https://i.dummyjson.com/data/products/17/1.jpg",
+                                                    "images1": "https://i.dummyjson.com/data/products/17/2.jpg",
+                                                    "images2": "https://i.dummyjson.com/data/products/17/3.jpg",
+                                                    "images3": null,
+                                                    "images4": null
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Product Not Found",
+                                    "products": []
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/keyword?{title} | {minPrice} | {maxPrice} ": {
+            "get": {
+                "tags": ["Products"],
+                "summary": "Get Product By Keyword",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in":"query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "minPrice",
+                        "in":"query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "maxPrice",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "Data Founded",
+                                    "products": [
+                                        {
+                                            "id": "1",
+                                            "title": "iPhone 9",
+                                            "description": "An apple mobile which is nothing like apple",
+                                            "price": 549,
+                                            "stock": 94,
+                                            "category": "smartphones",
+                                            "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+                                            "images0": "https://i.dummyjson.com/data/products/1/1.jpg",
+                                            "images1": "https://i.dummyjson.com/data/products/1/2.jpg",
+                                            "images2": "https://i.dummyjson.com/data/products/1/3.jpg",
+                                            "images3": null,
+                                            "images4": null
+                                        },
+                                        {
+                                            "id": "2",
+                                            "title": "iPhone X",
+                                            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+                                            "price": 899,
+                                            "stock": 34,
+                                            "category": "smartphones",
+                                            "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+                                            "images0": "https://i.dummyjson.com/data/products/2/1.jpg",
+                                            "images1": "https://i.dummyjson.com/data/products/2/2.jpg",
+                                            "images2": "https://i.dummyjson.com/data/products/2/3.jpg",
+                                            "images3": null,
+                                            "images4": null
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Products",
+            "description": "API For Products Search Services"
+        }
+    ]
+}

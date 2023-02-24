@@ -1,9 +1,9 @@
 import Products from "../model/Products.js";
-import { Op} from "sequelize";
+import { Op } from "sequelize";
 import { getCategoryFromSearchParams, uniqCategory } from "../utils/utils.js";
 export const getAllProducts = async ( req, res ) => {
     try{
-        const products = await Products.findAll();
+        const products = await Products.findAll(); 
         if( !products ) {
             return res.status(404).json({message: 'Data Not Found', products});
         }
@@ -12,15 +12,20 @@ export const getAllProducts = async ( req, res ) => {
         res.status(400).json({message: e.message});
     }
 }
+
 export const getProductById = async (req,res) => {
     try {
         const {id} = req.params;
         const product = await Products.findOne({where: {id}});
+        if (!product) {
+            res.status(404).json({message: "Product Not Found", product: []});
+        }
         res.status(200).json({message: 'Product Founded', product});
     } catch(e) {
         return res.status(400).json({message: e.message});
     }
 }
+
 export const getProductsByTitle = async (req, res) => {
     try {
         let { title="", orderBy="price", sort='asc', maxPrice=99999999999, minPrice=0, category=['all'] } = req.query;

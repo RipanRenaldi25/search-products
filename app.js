@@ -11,10 +11,10 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json('application/json'));
 app.use(cors(process.env.CORS_URL1));
 app.use(SearchRouter);
-
+let connection;
 const consume = async () => {
     // make sure all exchange, queue is Exist
-    const connection = await amqplib.connect('amqp://localhost');
+    connection = await amqplib.connect('amqp://localhost');
     const channel = await connection.createChannel();
     const que = await channel.assertQueue('getProducts');
     //
@@ -40,8 +40,8 @@ const consume = async () => {
 }
 consume();
 
+
 app.listen(parseInt(process.env.PORT), ()=>{
     console.log(`Server Listen on PORT ${process.env.PORT}`);
 })
-
 export default app;
